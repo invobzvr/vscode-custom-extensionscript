@@ -1,0 +1,78 @@
+{
+	"name": "vscode-custom-vsce",
+	"displayName": "Custom VSC Extensions",
+	"description": "Write custom VSCode extension functions if unwilling to install extensions for single functions.",
+	"version": "0.1.0",
+	"publisher": "invobzvr",
+	"license": "LICENSE",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/invobzvr/vscode-custom-vsce.git"
+	},
+	"homepage": "https://github.com/invobzvr/vscode-custom-vsce",
+	"bugs": {
+		"url": "https://github.com/invobzvr/vscode-custom-vsce/issues",
+		"email": "obzvr@outlook.com"
+	},
+	"engines": {
+		"vscode": "^1.56.0"
+	},
+	"categories": [
+		"Extension Packs",
+		"Other",
+		"Programming Languages"
+	],
+	"keywords": [
+		"custom",
+		"extensions",
+		"functions"
+	],
+	"activationEvents": [
+		"onCommand:custom-vsce.script.set",
+		"onCommand:custom-vsce.script.run"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "custom-vsce.script.set",
+				"title": "Custom VSCE: Set Script"
+			},
+			{
+				"command": "custom-vsce.script.run",
+				"title": "Custom VSCE: Run Script"
+			}
+		],
+		"configuration": {
+			"title": "Custom VSCE",
+			"properties": {
+				"custom-vsce.scripts": {
+					"type": "object",
+					"scope": "application",
+					"default": {}
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.56.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.2.2",
+		"@types/node": "14.x",
+		"eslint": "^7.27.0",
+		"@typescript-eslint/eslint-plugin": "^4.26.0",
+		"@typescript-eslint/parser": "^4.26.0",
+		"glob": "^7.1.7",
+		"mocha": "^8.4.0",
+		"typescript": "^4.3.2",
+		"vscode-test": "^1.5.2"
+	}
+}
