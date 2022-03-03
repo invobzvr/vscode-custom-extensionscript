@@ -1,17 +1,17 @@
 {
-	"name": "vscode-custom-vsce",
-	"displayName": "Custom VSC Extensions",
-	"description": "Write custom VSCode extension functions if unwilling to install extensions for single functions.",
+	"name": "vscode-custom-extensionscript",
+	"displayName": "Custom VSC ExtensionScript",
+	"description": "Writing custom VSCode extension scripts instead of installing extensions for single functions.",
 	"version": "0.4.0",
 	"publisher": "invobzvr",
 	"license": "LICENSE",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/invobzvr/vscode-custom-vsce.git"
+		"url": "https://github.com/invobzvr/vscode-custom-extensionscript.git"
 	},
-	"homepage": "https://github.com/invobzvr/vscode-custom-vsce",
+	"homepage": "https://github.com/invobzvr/vscode-custom-extensionscript",
 	"bugs": {
-		"url": "https://github.com/invobzvr/vscode-custom-vsce/issues",
+		"url": "https://github.com/invobzvr/vscode-custom-extensionscript/issues",
 		"email": "obzvr@outlook.com"
 	},
 	"engines": {
@@ -25,38 +25,38 @@
 	"keywords": [
 		"custom",
 		"extensions",
-		"functions"
+		"scripts"
 	],
 	"activationEvents": [
-		"onCommand:custom-vsce.script.set",
-		"onCommand:custom-vsce.script.run",
-		"onCommand:custom-vsce.script.edit",
-		"onCommand:custom-vsce.script.delete"
+		"onCommand:custom-extensionscript.set",
+		"onCommand:custom-extensionscript.run",
+		"onCommand:custom-extensionscript.edit",
+		"onCommand:custom-extensionscript.delete"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "custom-vsce.script.set",
-				"title": "Custom VSCE: Set Script"
+				"command": "custom-extensionscript.set",
+				"title": "Custom VSC ExtensionScript: Set Script"
 			},
 			{
-				"command": "custom-vsce.script.run",
-				"title": "Custom VSCE: Run Script"
+				"command": "custom-extensionscript.run",
+				"title": "Custom VSC ExtensionScript: Run Script"
 			},
 			{
-				"command": "custom-vsce.script.edit",
-				"title": "Custom VSCE: Edit Script"
+				"command": "custom-extensionscript.edit",
+				"title": "Custom VSC ExtensionScript: Edit Script"
 			},
 			{
-				"command": "custom-vsce.script.delete",
-				"title": "Custom VSCE: Delete Script"
+				"command": "custom-extensionscript.delete",
+				"title": "Custom VSC ExtensionScript: Delete Script"
 			}
 		],
 		"configuration": {
-			"title": "Custom VSCE",
+			"title": "Custom VSC ExtensionScript",
 			"properties": {
-				"custom-vsce.scripts": {
+				"custom-extensionscript.scripts": {
 					"type": "object",
 					"scope": "application",
 					"default": {}

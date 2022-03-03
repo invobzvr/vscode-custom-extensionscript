@@ -32,7 +32,7 @@ export class ScriptManager {
     }
 
     initialize() {
-        this.config = vscode.workspace.getConfiguration('custom-vsce');
+        this.config = vscode.workspace.getConfiguration('custom-extensionscript');
         this.scripts = Object.fromEntries(Object
             .entries(this.config.get<Dictionary<string>>('scripts')!)
             .map(([key, val]) => [key, new ExtScript(val)]));
