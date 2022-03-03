@@ -7,6 +7,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('custom-vsce.script.set', () => mngr.set()));
 	context.subscriptions.push(vscode.commands.registerCommand('custom-vsce.script.run', () => mngr.run()));
+	context.subscriptions.push(vscode.commands.registerCommand('custom-vsce.script.edit', () => mngr.edit()));
 }
 
 export function deactivate() { }

@@ -7,9 +7,13 @@ interface Dictionary<T> {
 class ExtScript extends String {
     private _func: Function | undefined;
 
+    get raw(): string {
+        return this as unknown as string;
+    }
+
     private get func(): Function {
         if (!this._func) {
-            this._func = new Function('vscode', this as unknown as string);
+            this._func = new Function('vscode', this.raw);
         }
         return this._func;
     }
@@ -34,6 +38,10 @@ export class ScriptManager {
             .map(([key, val]) => [key, new ExtScript(val)]));
     }
 
+    async requestPick(): Promise<string | undefined> {
+        return await vscode.window.showQuickPick(Object.keys(this.scripts));
+    }
+
     set(): void {
         const document = vscode.window.activeTextEditor?.document;
         if (document?.languageId === 'javascript') {
@@ -49,9 +57,20 @@ export class ScriptManager {
     }
 
     async run(): Promise<void> {
-        const name = await vscode.window.showQuickPick(Object.keys(this.scripts));
+        const name = await this.requestPick();
         if (name) {
             this.scripts[name].call();
+        }
+    }
+
+    async edit(): Promise<void> {
+        const name = await this.requestPick();
+        if (name) {
+            const document = await vscode.workspace.openTextDocument({
+                language: 'javascript',
+                content: this.scripts[name].raw,
+            });
+            vscode.window.showTextDocument(document);
         }
     }
 
