@@ -12,14 +12,7 @@ Write custom VSCode extension functions if unwilling to install extensions for s
     - Execute in command panel
     - Select the function to act
 
-Example:
-The function with a name `Reverse` is to reverse the selected lines.
-```js
-// Reverse
-const editor = vscode.window.activeTextEditor;
-editor?.edit(builder => {
-    const selection = editor.selection,
-        text = editor.document.getText(new vscode.Range(selection.start, selection.end))
-    builder.replace(selection, text.split('\n').reverse().join('\n'));
-});
-```
+## Examples
+- [Reverse Lines](https://github.com/invobzvr/vscode-custom-vsce/blob/master/examples/reverseLines.js)
+- [Parse Json](https://github.com/invobzvr/vscode-custom-vsce/blob/master/examples/parseJson.js)
+- [Format Untitled Python](https://github.com/invobzvr/vscode-custom-vsce/blob/master/examples/formatUntitledPython.js)

@@ -2,7 +2,7 @@
 	"name": "vscode-custom-vsce",
 	"displayName": "Custom VSC Extensions",
 	"description": "Write custom VSCode extension functions if unwilling to install extensions for single functions.",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"publisher": "invobzvr",
 	"license": "LICENSE",
 	"repository": {

@@ -13,13 +13,13 @@ class ExtScript extends String {
 
     private get func(): Function {
         if (!this._func) {
-            this._func = new Function('vscode', this.raw);
+            this._func = new Function('require', 'vscode', this.raw);
         }
         return this._func;
     }
 
     call() {
-        this.func(vscode);
+        this.func(require, vscode);
     }
 }
 
@@ -62,7 +62,11 @@ export class ScriptManager {
     async run(): Promise<void> {
         const name = await this.requestPick();
         if (name) {
-            this.scripts[name].call();
+            try {
+                this.scripts[name].call();
+            } catch (err) {
+                vscode.window.showErrorMessage(`Script [${name}] failed: ${err}`);
+            }
         }
     }
 
