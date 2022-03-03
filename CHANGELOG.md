@@ -1,5 +1,8 @@
 # Change Log
 
+### 0.5.0 (22-03-03)
+- Add command to autorun scripts
+
 ### 0.4.0 (22-03-03)
 - Support require
 - Show error message when failed

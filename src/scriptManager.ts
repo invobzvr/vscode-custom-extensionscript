@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { IExprStmt, ExprChecker } from './exprChecker';
 
 interface Dictionary<T> {
     [key: string]: T
@@ -26,6 +27,7 @@ class ExtScript extends String {
 export class ScriptManager {
     private config!: vscode.WorkspaceConfiguration;
     private scripts!: Dictionary<ExtScript>;
+    private tasks!: Dictionary<IExprStmt[]>;
 
     constructor() {
         this.initialize();
@@ -36,10 +38,21 @@ export class ScriptManager {
         this.scripts = Object.fromEntries(Object
             .entries(this.config.get<Dictionary<string>>('scripts')!)
             .map(([key, val]) => [key, new ExtScript(val)]));
+        this.tasks = this.config.get<Dictionary<IExprStmt[]>>('tasks')!;
     }
 
     async requestPick(): Promise<string | undefined> {
         return await vscode.window.showQuickPick(Object.keys(this.scripts));
+    }
+
+    private call(name: string): boolean {
+        try {
+            this.scripts[name].call();
+            return true;
+        } catch (err) {
+            vscode.window.showErrorMessage(`Script [${name}] failed: ${err}`);
+            return false;
+        }
     }
 
     async set(): Promise<void> {
@@ -62,11 +75,27 @@ export class ScriptManager {
     async run(): Promise<void> {
         const name = await this.requestPick();
         if (name) {
-            try {
-                this.scripts[name].call();
-            } catch (err) {
-                vscode.window.showErrorMessage(`Script [${name}] failed: ${err}`);
+            this.call(name);
+        }
+    }
+
+    async autoRun(): Promise<void> {
+        let matched = false,
+            hasErr = false;
+        for (const [name, exprs] of Object.entries(this.tasks)) {
+            if (ExprChecker.evaluate(exprs)) {
+                if (this.call(name)) {
+                    matched = true;
+                } else {
+                    hasErr = true;
+                    break;
+                }
             }
+        }
+        if (hasErr) {
+            vscode.window.showWarningMessage('AutoRun stopped because error occurred.');
+        } else if (!matched) {
+            await this.run();
         }
     }
 

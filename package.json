@@ -2,7 +2,7 @@
 	"name": "vscode-custom-extensionscript",
 	"displayName": "Custom VSC ExtensionScript",
 	"description": "Writing custom VSCode extension scripts instead of installing extensions for single functions.",
-	"version": "0.4.0",
+	"version": "0.5.0",
 	"publisher": "invobzvr",
 	"license": "LICENSE",
 	"repository": {
@@ -30,6 +30,7 @@
 	"activationEvents": [
 		"onCommand:custom-extensionscript.set",
 		"onCommand:custom-extensionscript.run",
+		"onCommand:custom-extensionscript.autorun",
 		"onCommand:custom-extensionscript.edit",
 		"onCommand:custom-extensionscript.delete"
 	],
@@ -43,6 +44,10 @@
 			{
 				"command": "custom-extensionscript.run",
 				"title": "Custom VSC ExtensionScript: Run Script"
+			},
+			{
+				"command": "custom-extensionscript.autorun",
+				"title": "Custom VSC ExtensionScript: AutoRun Script"
 			},
 			{
 				"command": "custom-extensionscript.edit",
@@ -60,9 +65,20 @@
 					"type": "object",
 					"scope": "application",
 					"default": {}
+				},
+				"custom-extensionscript.tasks": {
+					"type": "object",
+					"scope": "application",
+					"default": {}
 				}
 			}
-		}
+		},
+		"keybindings": [
+			{
+				"command": "custom-extensionscript.autorun",
+				"key": "alt+oem_3"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
