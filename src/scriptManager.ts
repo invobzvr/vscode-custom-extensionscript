@@ -42,7 +42,7 @@ export class ScriptManager {
         return await vscode.window.showQuickPick(Object.keys(this.scripts));
     }
 
-    set(): void {
+    async set(): Promise<void> {
         const document = vscode.window.activeTextEditor?.document;
         if (document?.languageId === 'javascript') {
             const text = document.getText(),
@@ -52,7 +52,10 @@ export class ScriptManager {
             this.scripts[name] = new ExtScript(text);
             this.save();
         } else {
-            vscode.window.showInformationMessage('Not a javascript.');
+            const document = await vscode.workspace.openTextDocument({
+                language: 'javascript',
+            });
+            vscode.window.showTextDocument(document);
         }
     }
 
@@ -71,6 +74,14 @@ export class ScriptManager {
                 content: this.scripts[name].raw,
             });
             vscode.window.showTextDocument(document);
+        }
+    }
+
+    async delete(): Promise<void> {
+        const name = await this.requestPick();
+        if (name) {
+            delete this.scripts[name];
+            this.save();
         }
     }
 

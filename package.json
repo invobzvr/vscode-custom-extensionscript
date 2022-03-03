@@ -2,7 +2,7 @@
 	"name": "vscode-custom-vsce",
 	"displayName": "Custom VSC Extensions",
 	"description": "Write custom VSCode extension functions if unwilling to install extensions for single functions.",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"publisher": "invobzvr",
 	"license": "LICENSE",
 	"repository": {
@@ -30,7 +30,8 @@
 	"activationEvents": [
 		"onCommand:custom-vsce.script.set",
 		"onCommand:custom-vsce.script.run",
-		"onCommand:custom-vsce.script.edit"
+		"onCommand:custom-vsce.script.edit",
+		"onCommand:custom-vsce.script.delete"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -46,6 +47,10 @@
 			{
 				"command": "custom-vsce.script.edit",
 				"title": "Custom VSCE: Edit Script"
+			},
+			{
+				"command": "custom-vsce.script.delete",
+				"title": "Custom VSCE: Delete Script"
 			}
 		],
 		"configuration": {
