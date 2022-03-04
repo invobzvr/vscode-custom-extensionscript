@@ -31,6 +31,9 @@ export class ScriptManager {
 
     constructor() {
         this.initialize();
+        vscode.workspace.onDidChangeConfiguration(evt =>
+            evt.affectsConfiguration('custom-extensionscript') &&
+            this.initialize());
     }
 
     initialize() {
@@ -83,13 +86,17 @@ export class ScriptManager {
         let matched = false,
             hasErr = false;
         for (const [name, exprs] of Object.entries(this.tasks)) {
-            if (ExprChecker.evaluate(exprs)) {
-                if (this.call(name)) {
-                    matched = true;
-                } else {
-                    hasErr = true;
-                    break;
+            if (name in this.scripts) {
+                if (ExprChecker.evaluate(exprs)) {
+                    if (this.call(name)) {
+                        matched = true;
+                    } else {
+                        hasErr = true;
+                        break;
+                    }
                 }
+            } else {
+                vscode.window.showWarningMessage(`Script [${name}] not found.`);
             }
         }
         if (hasErr) {

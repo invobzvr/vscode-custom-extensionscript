@@ -1,5 +1,9 @@
 # Change Log
 
+### 0.5.0 (22-03-04)
+- Auto reload after editing `settings.json`
+- Skip scripts that not exist when execute `autorun` command
+
 ### 0.5.0 (22-03-03)
 - Add command to autorun scripts
 
